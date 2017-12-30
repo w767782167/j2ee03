@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd"
+        default-lazy-init="true">
+
+    <!-- ①.构造器实例化（无参数构造器），最标准，使用最多。  作用域 -->
+    <!-- <bean id="SomeBean"  class="com.etcxm._08scope.SomeBean" scope="prototype">
+      
+    </bean> -->
+    
+    
+    <!-- 生命周期  -->
+    <bean id="SomeBean"  class="com.etcxm._08scope.SomeBean" 
+    init-method="open" destroy-method="close">
+      
+    </bean>
+    
+  
+</beans>

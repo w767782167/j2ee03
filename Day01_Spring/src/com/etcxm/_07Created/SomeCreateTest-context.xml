@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd"
+        default-lazy-init="true">
+
+    <!-- ①.构造器实例化（无参数构造器），最标准，使用最多。 -->
+    <bean id="Somebean1"  class="com.etcxm._07Created._01.SomeBean1" >
+      
+    </bean>
+    
+   <!--  ②.静态工厂方法实例化：解决系统遗留问题 -->
+     <bean id="Somebean2"  class="com.etcxm._07Created._02.SomeBean2Factory" 
+     factory-method="getSomeBean2">
+      
+    </bean>
+    
+   <!--  ③.实例工厂方法实例化：解决系统遗留问题 -->
+    <bean id="Somebean3Factory" class="com.etcxm._07Created._03.SomeBean3Factory"></bean>
+    <bean id="Somebean3" factory-bean="Somebean3Factory" factory-method="getSomeBean3"></bean>
+    
+    
+  <!--  ④.实现FactoryBean接口实例化 -->
+   <bean id="Somebean4"  class="com.etcxm._07Created._04.SomeBean4FactoryBean">
+      </bean>
+</beans>

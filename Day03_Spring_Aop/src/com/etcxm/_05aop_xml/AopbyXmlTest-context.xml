@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        "
+        >
+      
+       
+       
+        
+        <!-- 配置事务 -->
+         <bean id="tranManager" class="com.ectxm.common.TransactionManager"></bean>
+        
+        <!-- 配置dao -->
+        <bean id="employeeDao" class="com.ectxm.common.dao.Imp.EmployeeDaoImp"></bean>
+        
+        <!-- 配置service   真实对象-->
+        <bean id="employeeService" class="com.ectxm.common.service.Imp.EmployeeServiceImp">
+             <property name="dao" ref="employeeDao"></property>
+        </bean>
+        
+        <!-- 配置Aop -->
+        <aop:config>
+            <!--what :做什么增强  -->
+            <aop:aspect ref="tranManager">
+               <!--where: 在哪些包哪些类做增强  -->
+               <aop:pointcut expression="execution(* com.ectxm.common.service.*Service.* (..))" 
+               id="txpointcut"/>
+               
+               <!-- when:什么时候做 方法前 /方法后 -->
+               <aop:before method="begin" pointcut-ref="txpointcut"/>
+               <aop:after-returning method="commit" pointcut-ref="txpointcut"/>
+               <aop:after-throwing method="rollback" pointcut-ref="txpointcut" throwing="ex"/>
+               <aop:after method="close" pointcut-ref="txpointcut"/>
+            
+               <!-- <aop:around method="aroundMethod" pointcut-ref="txpointcut"/> -->
+            </aop:aspect>
+       
+        </aop:config>
+        
+       
+     
+ </beans>       
+        
+         
+        
+       
+ 
+        
+        
+        
+  
+  
+     
+     
+   
+    
+  

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        ">
+   
+     <!--  
+       name://前台访问的地址
+       class:对应的处理类
+     -->
+    <!-- <bean name="/hello" class="com.ectxm._01HelloWorld.HelloWorldController"></bean> -->
+   
+   
+  <!--  <bean class="com.ectxm._01HelloWorld.HelloWorldController"></bean> -->
+    
+   <!--  <bean class="com.ectxm._02Anno.AnnoController"></bean>    -->
+   
+   
+   <!--scan  -->
+   <context:component-scan base-package="com.ectxm._02Anno"></context:component-scan>
+   <context:component-scan base-package="com.ectxm._03Param"></context:component-scan>
+    <context:component-scan base-package="com.ectxm._05Value"></context:component-scan>
+    <context:component-scan base-package="com.ectxm._06upload"></context:component-scan>
+    <context:component-scan base-package="com.ectxm._07json"></context:component-scan>
+   
+
+   <!--MVC注解支持  -->
+   <mvc:annotation-driven/>
+   <!-- 要支持对静态资源的处理 -->
+   <mvc:default-servlet-handler/>
+   
+   
+   <!-- 拦截器配置 -->
+  <!--  <mvc:interceptors>
+     <mvc:interceptor>
+      需要拦截的路径  /*  == /  /** == /xxx/xxx
+       <mvc:mapping path="/**"/>
+       排除拦截的路径 
+       <mvc:exclude-mapping path="/method2"/>
+       拦截器类
+       <bean class="com.ectxm._04HandlerInterceptor.MyInterceptor"/>  
+     </mvc:interceptor>
+   </mvc:interceptors> -->
+   
+   <!--配置视图解析器  -->
+   <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+       <property name="prefix" value="/WEB-INF/"></property>
+       <property name="suffix" value=".jsp"></property>
+   </bean>
+   
+   <!--配置文件上传解析器   multipartResolver这个名字不能改 -->
+   <bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+       <!--设置文件上传的大小  -->
+       <property name="maxUploadSize">
+          <value>#{1024*1024}</value>
+       </property>
+   </bean>
+
+
+</beans>

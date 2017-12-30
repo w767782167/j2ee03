@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd"
+        >
+        <!-- 配置事务 -->
+         <bean id="tranManager" class="com.ectxm.common.TransactionManager"></bean>
+        
+        <!-- 配置dao -->
+        <bean id="employeeDao" class="com.ectxm.common.dao.Imp.EmployeeDaoImp"></bean>
+        
+        <!-- 配置service -->
+        <bean id="employeeService" class="com.ectxm.common.service.Imp.EmployeeServiceImp">
+             <property name="dao" ref="employeeDao"></property>
+        </bean>
+         
+         
+ 
+        <!-- 配置静态代理 -->
+        <bean id="employeeServiceProxy" class="com.etcxm._02_staticProxy.EmployeeServiceByStaticProxy">
+             <property name="target" ref="employeeService"></property>
+             <property name="manager" ref="tranManager"></property>
+        </bean>
+  
+  
+     
+     
+   
+    
+  
+</beans>
